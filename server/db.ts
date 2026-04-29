@@ -202,7 +202,9 @@ export async function createCustomSession(sessionToken: string, role: "admin" | 
   const db = await getDb();
   if (!db) throw new Error("DB not available");
   const expiresAt = Date.now() + 1000 * 60 * 60 * 24 * 7; // 7 days
-  await db.insert(customSessions).values({ sessionToken, role, resellerId: resellerId ?? null, expiresAt });
+  // Ensure resellerId is explicitly null if not provided, avoiding empty string issues
+  const rId = (resellerId === undefined || resellerId === null) ? null : resellerId;
+  await db.insert(customSessions).values({ sessionToken, role, resellerId: rId, expiresAt });
 }
 
 export async function getCustomSession(sessionToken: string) {
