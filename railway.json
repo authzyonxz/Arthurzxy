@@ -2,7 +2,7 @@
   "$schema": "https://railway.app/railway.schema.json",
   "build": {
     "builder": "nixpacks",
-    "buildCommand": "pnpm install && pnpm build"
+    "buildCommand": "pnpm install && pnpm drizzle-kit generate && pnpm drizzle-kit push && pnpm build"
   },
   "deploy": {
     "startCommand": "pnpm start",
